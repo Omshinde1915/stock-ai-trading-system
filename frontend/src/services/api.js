@@ -2,9 +2,9 @@
 import axios from 'axios';
 
 // Get backend URL dynamically:
-// 1. Checks VITE_API_URL environment variable first (set in Render frontend settings)
+// 1. Checks VITE_API_URL environment variable first (Vite production build)
 // 2. If running locally on localhost, uses http://127.0.0.1:8000/api
-// 3. Otherwise defaults to the deployed Render backend
+// 3. In cloud production (Render), connects to https://stock-ai-trading-system.onrender.com/api
 const getBaseUrl = () => {
     const envUrl = import.meta.env.VITE_API_URL;
     if (envUrl && envUrl.trim() !== '') {
@@ -14,7 +14,7 @@ const getBaseUrl = () => {
     if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
         return 'http://127.0.0.1:8000/api';
     }
-    return 'https://stockai-backend.onrender.com/api';
+    return 'https://stock-ai-trading-system.onrender.com/api';
 };
 
 const API_BASE_URL = getBaseUrl();
