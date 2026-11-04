@@ -272,12 +272,10 @@ npm test
 
 ## 👥 Project Team (Group Members)
 
-| # | Name | Profile / Role |
-| :-: | :--- | :--- |
-| **1** | **Om Shinde** | [@Omshinde1915](https://github.com/Omshinde1915) |
-| **2** | **Jayesh Pawar** | Team Member |
-| **3** | **Geetanjali Deore** | Team Member |
-| **4** | **Harsh Gujarathi** | Team Member |
+1. **Om Shinde**
+2. **Jayesh Pawar**
+3. **Geetanjali Deore**
+4. **Harsh Gujarathi**
 
 ---
 
