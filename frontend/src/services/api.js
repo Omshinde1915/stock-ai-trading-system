@@ -1,7 +1,23 @@
 // API Service for backend communication
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+// Get backend URL dynamically:
+// 1. Checks VITE_API_URL environment variable first (set in Render frontend settings)
+// 2. If running locally on localhost, uses http://127.0.0.1:8000/api
+// 3. Otherwise defaults to the deployed Render backend
+const getBaseUrl = () => {
+    const envUrl = import.meta.env.VITE_API_URL;
+    if (envUrl && envUrl.trim() !== '') {
+        const clean = envUrl.trim().replace(/\/$/, '');
+        return clean.endsWith('/api') ? clean : `${clean}/api`;
+    }
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+        return 'http://127.0.0.1:8000/api';
+    }
+    return 'https://stockai-backend.onrender.com/api';
+};
+
+const API_BASE_URL = getBaseUrl();
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: { 'Content-Type': 'application/json' },
@@ -50,15 +66,25 @@ export const removeFromWatchlist = (id) => api.delete(`/watchlist/${id}`);
 // PORTFOLIO
 export const getPortfolio = () => api.get('/portfolio/');
 export const getTransactions = () => api.get('/portfolio/transactions');
+export const buyStock = (data) => api.post('/trading/buy', data);
+export const sellStock = (data) => api.post('/trading/sell', data);
 
-// TRADING
-export const buyStock = (symbol, quantity) => api.post('/trading/buy', { symbol, quantity });
-export const sellStock = (symbol, quantity) => api.post('/trading/sell', { symbol, quantity });
+// MARKET DATA
+export const getMarketIndices = () => api.get('/stocks/market/indices');
+export const getMarketMovers = () => api.get('/stocks/market/movers');
 
-// CHATBOT
-export const sendChatMessage = (message, sessionId = null) => 
-    api.post('/chat', { message, session_id: sessionId });
+// AI CHATBOT
+export const sendChatMessage = (data) => api.post('/chat/', data);
 export const getChatSessions = () => api.get('/chat/sessions');
-export const getChatMessages = (sessionId) => api.get(`/chat/sessions/${sessionId}/messages`);
+export const getChatMessages = (sessionId) => api.get(`/chat/sessions/${sessionId}`);
+
+// AUTO-TRADING AGENT
+export const getAgentStatus = () => api.get('/auto-trading/status');
+export const startAgent = () => api.post('/auto-trading/start');
+export const stopAgent = () => api.post('/auto-trading/stop');
+export const runAgentCycle = () => api.post('/auto-trading/run-cycle');
+export const emergencyStop = () => api.post('/auto-trading/emergency-stop');
+export const getAgentLogs = () => api.get('/auto-trading/logs');
+export const getAgentStats = () => api.get('/auto-trading/stats');
 
 export default api;
