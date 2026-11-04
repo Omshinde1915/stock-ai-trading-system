@@ -1,16 +1,17 @@
-# 🤖 AI-Based Stock Prediction & Multi-Agent Trading Assistant
+# 🤖 StockAI - Intelligent Stock Prediction & Multi-Agent Trading Assistant
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.104-green.svg)
-![React](https://img.shields.io/badge/React-18.2-61dafb.svg)
-![SQL Server](https://img.shields.io/badge/SQL%20Server-LocalDB-red.svg)
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.104-009688?style=flat&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-18.2-61DAFB?style=flat&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-8.2-646CFF?style=flat&logo=vite&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Zero_Config-003B57?style=flat&logo=sqlite&logoColor=white)
 ![License](https://img.shields.io/badge/License-Educational-yellow.svg)
 
-**An intelligent stock analysis, prediction, and paper trading system powered by multi-agent AI architecture.**
+**An intelligent stock analysis, machine learning prediction, and paper trading system powered by multi-agent AI architecture.**
 
-[Features](#-features) • [Architecture](#-architecture) • [Setup](#-setup) • [API](#-api-endpoints) • [Screenshots](#-screenshots)
+[Features](#-features) • [Architecture](#-architecture) • [Project Structure](#-project-structure) • [Setup](#-setup) • [API Endpoints](#-api-endpoints)
 
 </div>
 
@@ -18,466 +19,182 @@
 
 ## 📖 Overview
 
-**StockAI** is a full-stack web application that combines **Machine Learning**, **Multi-Agent Architecture**, and **Real-Time Market Data** to help users analyze Indian stocks, predict price movements, and practice paper trading in a risk-free environment.
+**StockAI** is a full-stack financial technology web application designed to analyze Indian stocks (NSE), generate short-term price predictions using Machine Learning, and simulate paper trading in a risk-free environment with **₹10,00,000 in virtual cash**.
 
-> ⚠️ **Disclaimer:** This is an educational/research project. All trading is **simulated** (paper trading) — no real money or broker is involved. Predictions are **estimates**, not guarantees. This is **not financial advice**.
+> ⚠️ **Disclaimer:** This is an educational and research project. All trading is **simulated** (paper trading) — no real money or broker accounts are involved. Predictions are statistical estimates, not financial advice.
 
 ---
 
 ## ✨ Features
 
-### 📊 Stock Analysis
-- **100+ Indian Stocks** (NSE) across sectors
-- **Real-time prices** via Yahoo Finance (with `.NS` / `.BO` support)
-- **Market Indices** — NIFTY 50, SENSEX, BANK NIFTY, NIFTY IT, etc.
-- **Historical charts** (up to 1 year+)
-- **Interactive dashboards** with animated UI
-
-### 🤖 AI & ML
-- **Ensemble ML models** — Linear Regression + Random Forest
-- **Technical Indicators** — RSI, MACD, SMA, EMA, Bollinger Bands, ATR
-- **BUY / SELL / HOLD** signals with confidence scores
-- **Risk assessment** — Low / Medium / High
-- **Explainable decisions** with reasoning
-
-### 👥 Multi-Agent Architecture
-- **Supervisor Agent** — orchestrates all agents
-- **Market Data Agent** — data provider layer
-- **Technical Analysis Agent** — computes indicators
-- **Prediction Agent** — ML model lifecycle
-- **Decision Agent** — combines signals
-- **Risk Management Agent** — enforces rules
-- **Portfolio Agent** — tracks positions
-- **Auto-Trading Agent** — autonomous execution
-
-### 💼 Paper Trading
-- **₹10,00,000 virtual balance** per user
-- **BUY / SELL** with realistic execution costs
-- **Portfolio tracking** with P&L
-- **Transaction history**
-- **Watchlist** for monitoring
-
-### 🤖 Auto-Trading Agent
-- **Autonomous trading** based on AI signals
-- **Market hours enforcement** (9:15 AM – 3:30 PM IST)
-- **Risk rules** — max position, daily loss limit, confidence threshold
-- **Kill switch** for emergency stop
-- **Complete audit log**
-- **P&L tracking** with win rate
-
-### 💬 Multilingual Chatbot
-- **English / हिंदी / मराठी** support
-- **Auto language detection**
-- **Real-time stock analysis** responses
-- **Context-aware** for stocks, portfolio, technicals
-
-### 🎨 Modern UI
-- **Dark / Light mode** toggle
-- **Glassmorphism** design
-- **Framer Motion** animations
-- **Responsive** layout
-- **Interactive charts** (Chart.js, Recharts)
-
-### 🔐 Security
-- **JWT authentication**
-- **Bcrypt password hashing**
-- **Protected routes**
-- **SQL injection protection** (SQLAlchemy ORM)
-- **User-specific data isolation**
+- **📊 Live Indian Market Data**: 120+ NSE stocks and major indices (NIFTY 50, SENSEX, BANK NIFTY) with interactive charts.
+- **🤖 Ensemble ML Predictions**: Combines Linear Regression and Random Forest models with technical indicators (RSI, MACD, Bollinger Bands, Moving Averages) to generate **BUY / HOLD / SELL** signals.
+- **👥 Multi-Agent Architecture**: Autonomous agent pipeline that handles data ingestion, technical analysis, risk evaluation, and order routing.
+- **💼 Paper Trading Engine**: Realistic simulated execution with fee tracking, portfolio allocation charts, and historical P&L analytics.
+- **🤖 Autonomous Auto-Trading Agent**: Configurable bot executing rule-based paper trades during market hours (9:15 AM – 3:30 PM IST) with strict stop-loss and daily risk limits.
+- **💬 Multilingual AI Assistant**: Context-aware chatbot supporting **English, Hindi (हिंदी), and Marathi (मराठी)**.
+- **🎨 Modern Responsive UI**: Glassmorphic dark/light mode interface built with React, Framer Motion, and Tailwind/CSS variables.
 
 ---
 
 ## 🏗️ Architecture
 
-### High-Level Flow
+### High-Level System Flow
 
+```mermaid
+flowchart TD
+    subgraph Client ["🖥️ Frontend (React 18 + Vite)"]
+        UI["Dashboard • Portfolio • Watchlist • AutoTrading • AI Chatbot"]
+    end
 
+    subgraph Server ["⚡ Backend (FastAPI REST API)"]
+        Sup["🧠 Supervisor Agent (Orchestrator)"]
+        Agents["🤖 Multi-Agent Engine<br/>Market Data • Technical Analysis • ML Prediction<br/>Risk Management • Portfolio Agent • Auto-Trader"]
+        Scheduler["⏰ APScheduler (Market Hours Trading: 9:15 AM - 3:30 PM)"]
+        Sup --> Agents
+        Agents <--> Scheduler
+    end
 
+    subgraph Data ["🗄️ Data & Storage"]
+        DB[("Database<br/>SQLite / PostgreSQL")]
+        YF["📈 Yahoo Finance API<br/>(Live NSE / BSE Feeds)"]
+    end
 
+    UI -->|REST API + JWT| Server
+    Server --> Data
+```
 
-┌─────────────────────────────────────────────────────────────┐
-│ FRONTEND (React + Vite) │
-│ Dashboard | Portfolio | Watchlist | AI Agent | Chatbot │
-└────────────────────┬────────────────────────────────────────┘
-│ REST API (JWT)
-┌────────────────────▼────────────────────────────────────────┐
-│ BACKEND (FastAPI) │
-│ │
-│ ┌──────────────────────────────────────────────────────┐ │
-│ │ SUPERVISOR AGENT (Orchestrator) │ │
-│ └────┬────────┬────────┬────────┬────────┬────────┬────┘ │
-│ │ │ │ │ │ │ │
-│ ┌───▼──┐ ┌──▼───┐ ┌─▼────┐ ┌▼─────┐ ┌▼────┐ ┌─▼─────┐ │
-│ │Market│ │Tech │ │Pred │ │Risk │ │Port │ │Auto │ │
-│ │Data │ │Analy │ │ML │ │Mgmt │ │folio│ │Trade │ │
-│ └───┬──┘ └──────┘ └──────┘ └──────┘ └─────┘ └───┬───┘ │
-│ │ │ │
-│ │ ┌────────────────────────┐ │ │
-│ └──────►│ Scheduler (APScheduler)│◄────────┘ │
-│ │ Market Hours Only │ │
-│ └────────────────────────┘ │
-└────────────────────┬────────────────────────────────────────┘
+### Multi-Agent Pipeline
+
+```text
+Market Data  ──▶  Technical Analysis  ──▶  ML Prediction  ──▶  Risk Evaluation  ──▶  Decision Engine  ──▶  Paper Execution
+ (Live OHLCV)       (RSI, MACD, SMA)       (Random Forest)     (Limits & Exposure)    (Weighted Signal)    (Virtual Balance)
+```
+
+---
+
+## 📁 Project Structure
+
+```text
+stock-ai-trading-system/
+├── backend/
+│   ├── app/
+│   │   ├── agents/          # Multi-agent trading orchestration & scheduler
+│   │   ├── api/ & routers/  # FastAPI REST endpoints (auth, stocks, portfolio, chat)
+│   │   ├── models/          # SQLAlchemy database schemas (user, holdings, orders)
+│   │   ├── ml/ & indicators/# ML models (Random Forest, Linear Regression) & technical logic
+│   │   ├── database.py      # Database engine & session management (SQLite / SQL Server)
+│   │   └── main.py          # FastAPI application entrypoint
+│   ├── scripts/             # Data seeding (120+ NSE stocks, market indices)
+│   └── requirements.txt     # Python backend dependencies
 │
-┌────────────┼────────────┐
-│ │ │
-┌───▼────┐ ┌───▼────┐ ┌───▼────┐
-│ Yahoo │ │ SQL │ │ Mock │
-│Finance │ │Server │ │Provider│
-│(Real) │ │LocalDB │ │(Demo) │
-└────────┘ └────────┘ └────────┘
-
-text
-
-### Multi-Agent Flow (10-Step Process)
-Market Data Agent → Fetch OHLCV data
-
-Technical Agent → Compute RSI, MACD, SMA
-
-Prediction Agent → ML model prediction
-
-Market Trend Check → Momentum analysis
-
-Volatility Check → Risk assessment
-
-Portfolio Agent → Current exposure
-
-Risk Manager → Rule checks
-
-Decision Agent → Weighted scoring
-
-Confidence Blend → Model + history
-
-Execution Engine → Paper trade
-
-text
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # UI components (Header, MarketMovers, StockCard, Chatbot)
+│   │   ├── pages/           # Pages (Dashboard, StockDetail, Portfolio, AutoTrading)
+│   │   ├── context/         # Auth & Theme Context providers
+│   │   └── services/        # Axios API client
+│   ├── package.json         # Frontend dependencies (React 18, Vite, Chart.js)
+│   └── vite.config.js       # Vite configuration
+│
+├── run_all.bat              # One-click Windows launcher (starts backend + frontend)
+├── run_backend.bat          # Backend launcher
+├── run_frontend.bat         # Frontend launcher
+└── README.md                # Documentation
+```
 
 ---
 
 ## 🛠️ Technology Stack
 
-### Backend
-| Technology | Purpose |
-|-----------|---------|
-| **Python 3.11+** | Core language |
-| **FastAPI** | REST API framework |
-| **SQLAlchemy** | ORM |
-| **SQL Server LocalDB** | Database |
-| **Pydantic** | Data validation |
-| **JWT** | Authentication |
-| **Passlib + Bcrypt** | Password hashing |
-| **APScheduler** | Background jobs |
-
-### ML & Data
-| Technology | Purpose |
-|-----------|---------|
-| **scikit-learn** | ML models |
-| **pandas / numpy** | Data processing |
-| **yfinance** | Real market data |
-| **TA-Lib logic** | Technical indicators |
-
-### Frontend
-| Technology | Purpose |
-|-----------|---------|
-| **React 18** | UI framework |
-| **Vite** | Build tool |
-| **React Router** | Navigation |
-| **Framer Motion** | Animations |
-| **Chart.js** | Charts |
-| **Recharts** | Portfolio charts |
-| **Axios** | HTTP client |
+| Domain | Technologies |
+| :--- | :--- |
+| **Backend Framework** | Python 3.11+, FastAPI, Uvicorn, Pydantic |
+| **Database & ORM** | SQLAlchemy, SQLite (Default zero-config), PostgreSQL / SQL Server compatible |
+| **Machine Learning** | scikit-learn, pandas, numpy, yfinance |
+| **Frontend Framework** | React 18, Vite, React Router, Framer Motion |
+| **Data Visualization** | Chart.js, react-chartjs-2, Recharts |
+| **Authentication** | JWT (JSON Web Tokens), Passlib, Bcrypt |
 
 ---
 
-## 📁 Project Structure
-stock-ai-trading-system/
-│
-├── backend/
-│ ├── app/
-│ │ ├── main.py # FastAPI entry
-│ │ ├── config.py # Settings
-│ │ ├── database.py # DB connection
-│ │ │
-│ │ ├── agents/ # Multi-agent system
-│ │ │ ├── supervisor.py
-│ │ │ ├── market_data_agent.py
-│ │ │ ├── technical_analysis_agent.py
-│ │ │ ├── prediction_agent.py
-│ │ │ ├── decision_agent.py
-│ │ │ ├── risk_management_agent.py
-│ │ │ ├── portfolio_agent.py
-│ │ │ ├── auto_trading_agent.py
-│ │ │ └── scheduler.py
-│ │ │
-│ │ ├── models/ # SQLAlchemy models
-│ │ │ ├── user.py
-│ │ │ ├── stock.py
-│ │ │ ├── portfolio.py
-│ │ │ ├── watchlist.py
-│ │ │ ├── prediction.py
-│ │ │ ├── chat.py
-│ │ │ ├── news.py
-│ │ │ └── agent_log.py
-│ │ │
-│ │ ├── routers/ # API routes
-│ │ │ ├── auth.py
-│ │ │ ├── stocks.py
-│ │ │ ├── portfolio.py
-│ │ │ ├── watchlist.py
-│ │ │ ├── trading.py
-│ │ │ ├── chat.py
-│ │ │ └── auto_trading.py
-│ │ │
-│ │ ├── providers/ # Data providers
-│ │ │ ├── base.py
-│ │ │ ├── factory.py
-│ │ │ ├── yahoo_provider.py
-│ │ │ └── mock_provider.py
-│ │ │
-│ │ ├── indicators/ # Technical indicators
-│ │ │ └── technical.py
-│ │ │
-│ │ ├── ml/ # ML pipeline
-│ │ │ └── models.py
-│ │ │
-│ │ ├── risk/ # Risk management
-│ │ │ └── risk_manager.py
-│ │ │
-│ │ └── trading/ # Paper trading engine
-│ │ └── paper_trading_engine.py
-│ │
-│ ├── scripts/
-│ │ ├── setup_database.py
-│ │ ├── seed_stocks.py
-│ │ ├── seed_indices.py
-│ │ └── migrate_agent_columns.py
-│ │
-│ ├── requirements.txt
-│ └── .env
-│
-├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── Header.jsx
-│ │ │ ├── StockCard.jsx
-│ │ │ ├── MarketOverview.jsx
-│ │ │ ├── MarketMovers.jsx
-│ │ │ ├── PortfolioCharts.jsx
-│ │ │ └── Chatbot.jsx
-│ │ │
-│ │ ├── pages/
-│ │ │ ├── Dashboard.jsx
-│ │ │ ├── StockDetail.jsx
-│ │ │ ├── Portfolio.jsx
-│ │ │ ├── Watchlist.jsx
-│ │ │ ├── AutoTrading.jsx
-│ │ │ └── Login.jsx
-│ │ │
-│ │ ├── context/
-│ │ │ ├── AuthContext.jsx
-│ │ │ └── ThemeContext.jsx
-│ │ │
-│ │ ├── services/
-│ │ │ └── api.js
-│ │ │
-│ │ ├── App.jsx
-│ │ ├── main.jsx
-│ │ └── index.css
-│ │
-│ ├── package.json
-│ └── vite.config.js
-│
-└── README.md
-
-text
-
----
-
-## 🚀 Setup
+## 🚀 Setup & Installation
 
 ### Prerequisites
-
 - **Python 3.11+**
 - **Node.js 18+**
-- *(Optional)* SQL Server LocalDB or SQL Server Express (defaults to built-in SQLite)
 
 ### 1️⃣ Quick Start (Windows)
-
-Simply run:
+Simply run the root launch script:
 ```powershell
 .\run_all.bat
 ```
-This automatically launches both the FastAPI Backend and the React Frontend in separate windows!
+This automatically starts both the FastAPI Backend and the Vite React Frontend in separate windows.
 
 ---
 
 ### 2️⃣ Manual Setup
 
 #### Backend Setup
-
 ```powershell
-# Navigate to backend
 cd backend
 
-# Create virtual environment
+# Create and activate virtual environment
 python -m venv .venv
 .venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Seed Indian stocks and indices
-python scripts\seed_stocks.py
-python scripts\seed_indices.py
-
-# Start Backend Server
+# Start backend server (auto-seeds stocks on first run)
 python -m uvicorn app.main:app --port 8000 --host 0.0.0.0
 ```
-- Backend API: `http://localhost:8000`
-- Swagger Docs: `http://localhost:8000/docs`
+- **Backend API**: `http://localhost:8000`
+- **Swagger Documentation**: `http://localhost:8000/docs`
 
 #### Frontend Setup
-
 ```powershell
-# In a new terminal, navigate to frontend
+# In a new terminal
 cd frontend
 
-# Install dependencies
+# Install dependencies & start dev server
 npm install
-
-# Start dev server
 npm run dev
 ```
-- Frontend Web App: `http://localhost:5173`
+- **Web Application**: `http://localhost:5173`
 
-🔌 API Endpoints
-Authentication
-Method	Endpoint	Description
-POST	/api/auth/register	Register new user
-POST	/api/auth/login	Login & get JWT
-GET	/api/auth/me	Get current user
-Stocks
-Method	Endpoint	Description
-GET	/api/stocks/	List all stocks
-GET	/api/stocks/{symbol}	Get stock detail
-GET	/api/stocks/{symbol}/history	Historical prices
-GET	/api/stocks/{symbol}/analysis	Full AI analysis
-GET	/api/stocks/market/indices	Market indices
-GET	/api/stocks/market/movers	Top gainers/losers
-Portfolio & Trading
-Method	Endpoint	Description
-GET	/api/portfolio/	Portfolio summary
-GET	/api/portfolio/transactions	Transaction history
-POST	/api/trading/buy	Buy stock
-POST	/api/trading/sell	Sell stock
-Watchlist
-Method	Endpoint	Description
-GET	/api/watchlist/	Get watchlist
-POST	/api/watchlist/	Add stock
-DELETE	/api/watchlist/{id}	Remove stock
-Auto-Trading Agent
-Method	Endpoint	Description
-GET	/api/auto-trading/status	Agent status
-POST	/api/auto-trading/start	Start agent
-POST	/api/auto-trading/stop	Stop agent
-POST	/api/auto-trading/run-cycle	Manual run
-POST	/api/auto-trading/emergency-stop	Kill switch
-GET	/api/auto-trading/logs	Activity logs
-GET	/api/auto-trading/stats	Performance stats
-Chatbot
-Method	Endpoint	Description
-POST	/api/chat/	Send message
-GET	/api/chat/sessions	Chat history
-📸 Screenshots
-🏠 Dashboard
-https://docs/screenshots/dashboard.png
-Market Overview with live indices, top gainers/losers, and stock cards
+---
 
-📈 Stock Analysis
-https://docs/screenshots/stock-detail.png
-Detailed analysis with price chart, ML predictions, and technical indicators
+## 🔌 API Endpoints
 
-💼 Portfolio
-https://docs/screenshots/portfolio.png
-Portfolio with allocation pie chart and stock-wise P&L
+| Category | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **Auth** | `POST` | `/api/auth/register` | Register new user account |
+| **Auth** | `POST` | `/api/auth/login` | Login and receive JWT access token |
+| **Auth** | `GET` | `/api/auth/me` | Fetch current user details |
+| **Stocks** | `GET` | `/api/stocks/` | List all tracked stocks with sectors |
+| **Stocks** | `GET` | `/api/stocks/{symbol}` | Get real-time stock details |
+| **Stocks** | `GET` | `/api/stocks/{symbol}/history` | Historical OHLCV prices |
+| **Stocks** | `GET` | `/api/stocks/analyze/{symbol}` | Full AI analysis, indicators & prediction |
+| **Stocks** | `GET` | `/api/stocks/market/indices` | Live benchmark indices |
+| **Trading** | `POST` | `/api/trading/buy` | Execute paper BUY order |
+| **Trading** | `POST` | `/api/trading/sell` | Execute paper SELL order |
+| **Portfolio** | `GET` | `/api/portfolio/` | Portfolio summary & current balance |
+| **Portfolio** | `GET` | `/api/portfolio/transactions` | Full transaction history |
+| **Auto-Trading** | `GET` | `/api/auto-trading/status` | Current state of automated agent |
+| **Auto-Trading** | `POST` | `/api/auto-trading/start` | Start auto-trading bot |
+| **Auto-Trading** | `POST` | `/api/auto-trading/emergency-stop` | Emergency kill switch |
+| **Chatbot** | `POST` | `/api/chat/` | Send message to multilingual AI assistant |
 
-🤖 AI Auto-Trading Agent
-https://docs/screenshots/auto-trading.png
-Autonomous trading agent with market hours, P&L tracking, and activity logs
+---
 
-💬 Multilingual Chatbot
-https://docs/screenshots/chatbot.png
-AI assistant supporting English, Hindi, and Marathi
+## 👨‍💻 Author
 
-🌙 Dark Mode
-https://docs/screenshots/dark-mode.png
-Modern dark theme with glassmorphism design
+**Om Shinde**
+- **GitHub**: [@Omshinde1915](https://github.com/Omshinde1915)
+- **Repository**: [stock-ai-trading-system](https://github.com/Omshinde1915/stock-ai-trading-system)
 
+---
 
-🧪 Testing
-powershell
-# Backend tests
-cd backend
-pytest
-
-# Frontend tests
-cd frontend
-npm test
-⚠️ Limitations
-Paper Trading Only — No real broker integration
-
-ML Predictions — Not guaranteed, statistical estimates only
-
-Yahoo Finance — Free tier has rate limits
-
-Market Hours — Auto-trading works only 9:15 AM – 3:30 PM IST
-
-No Options/Futures — Only equity stocks supported
-
-Single User per Session — No concurrent user testing
-
-🔮 Future Enhancements
-□ News + Sentiment Analysis
-□ Backtesting Engine
-□ Real Broker Integration (Zerodha, Upstox)
-□ LSTM / Transformer Models
-□ Price Alerts & Notifications
-□ Multi-user portfolio comparison
-□ Advanced screening (P/E, RSI, volume)
-□ Mobile app (React Native)
-□ Docker deployment
-□ Cloud hosting (AWS/GCP)
-
-👨‍💻 Author
-Your Name
-Final Year Engineering Student
-[Your College Name]
-
-📧 Email: your.email@example.com
-
-🔗 LinkedIn: Your Profile
-
-🐙 GitHub: @yourusername
-
-📄 License
-This project is for educational purposes only.
-Not for commercial use.
-Not financial advice.
-
-🙏 Acknowledgments
-Yahoo Finance — Real market data
-
-FastAPI — Backend framework
-
-React — Frontend library
-
-scikit-learn — ML models
-
-Framer Motion — Animations
-
-<div align="center">
-⭐ Star this repo if you found it helpful!
-
-Made with ❤️ for learning
-
-</div> ```
-		
+## 📄 License
+This project is developed for educational and academic research purposes.
