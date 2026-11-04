@@ -61,18 +61,36 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup_event():
-    print("🚀 Starting Stock Trading System...")
+    print("Starting Stock Trading System...")
     if not test_connection():
-        print("⚠️ Database connection failed!")
+        print("Warning: Database connection test returned false.")
     init_db()
+
+    # Automatically seed initial stocks and indices if database is fresh
+    try:
+        from app.database import SessionLocal
+        from app.models.stock import Stock
+        with SessionLocal() as db:
+            if db.query(Stock).count() == 0:
+                print("First run detected: Seeding initial stocks and indices...")
+                try:
+                    from scripts.seed_stocks import seed_stocks
+                    from scripts.seed_indices import seed_indices
+                    seed_stocks()
+                    seed_indices()
+                except Exception as seed_err:
+                    print(f"Auto-seed warning: {seed_err}")
+    except Exception as e:
+        print(f"Stock count check: {e}")
+
     start_scheduler()
-    print("✅ Database initialized!")
+    print("Database initialized & scheduler started!")
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
     stop_scheduler()
-    print("👋 Scheduler stopped")
+    print("Scheduler stopped")
 
 
 # Include routers
