@@ -270,11 +270,14 @@ npm test
 
 ---
 
-## 👨‍💻 Author
+## 👥 Project Team (Group Members)
 
-**Om Shinde**
-- **GitHub**: [@Omshinde1915](https://github.com/Omshinde1915)
-- **Repository**: [stock-ai-trading-system](https://github.com/Omshinde1915/stock-ai-trading-system)
+| # | Name | Profile / Role |
+| :-: | :--- | :--- |
+| **1** | **Om Shinde** | [@Omshinde1915](https://github.com/Omshinde1915) |
+| **2** | **Jayesh Pawar** | Team Member |
+| **3** | **Geetanjali Deore** | Team Member |
+| **4** | **Harsh Gujarathi** | Team Member |
 
 ---
 
