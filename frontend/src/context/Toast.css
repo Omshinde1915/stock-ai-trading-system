@@ -1,0 +1,99 @@
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid;
+    min-width: 280px;
+    pointer-events: auto;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.toast-success {
+    border-left-color: #10b981;
+    color: #065f46;
+    background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+}
+
+.toast-error {
+    border-left-color: #ef4444;
+    color: #991b1b;
+    background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+}
+
+.toast-warning {
+    border-left-color: #f59e0b;
+    color: #92400e;
+    background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+}
+
+.toast-info {
+    border-left-color: #1e3c72;
+    color: #1e3a8a;
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+}
+
+.toast-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.toast-message {
+    flex: 1;
+    line-height: 1.4;
+}
+
+/* Dark mode */
+[data-theme="dark"] .toast {
+    background: rgba(30, 41, 59, 0.98);
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .toast-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(30, 41, 59, 0.98) 100%);
+    color: #4ade80;
+}
+
+[data-theme="dark"] .toast-error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(30, 41, 59, 0.98) 100%);
+    color: #f87171;
+}
+
+[data-theme="dark"] .toast-warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(30, 41, 59, 0.98) 100%);
+    color: #fbbf24;
+}
+
+[data-theme="dark"] .toast-info {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.2) 0%, rgba(30, 41, 59, 0.98) 100%);
+    color: #60a5fa;
+}
+
+@media (max-width: 500px) {
+    .toast-container {
+        left: 10px;
+        right: 10px;
+        max-width: 100%;
+    }
+    
+    .toast {
+        min-width: auto;
+    }
+}

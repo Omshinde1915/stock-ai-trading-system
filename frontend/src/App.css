@@ -1,0 +1,14 @@
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: transparent;
+}
+
+.main-content {
+    flex: 1;
+    padding-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}

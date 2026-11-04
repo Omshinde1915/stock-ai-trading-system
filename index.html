@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockAI - Intelligent Stock Trading System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">📈 StockAI</div>
+        <nav>
+            <a href="#dashboard" class="active">Dashboard</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#watchlist">Watchlist</a>
+            <a href="#chatbot-section">AI Assistant</a>
+        </nav>
+        <div class="user-section">
+            <span id="user-name">👤 Guest</span>
+            <button id="logout-btn" class="btn-logout" style="display:none;">Logout</button>
+            <button id="login-btn" class="btn-login">Login</button>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login / Register</h2>
+            <div class="login-tabs">
+                <button class="tab-btn active" onclick="showLogin()">Login</button>
+                <button class="tab-btn" onclick="showRegister()">Register</button>
+            </div>
+            
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="error-msg" id="login-error"></p>
+            </form>
+            
+            <form id="register-form" style="display:none;">
+                <input type="text" id="register-name" placeholder="Name">
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Register</button>
+                <p class="error-msg" id="register-error"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="dashboard-header">
+                <h1>Market Dashboard</h1>
+                <div class="filters">
+                    <select id="sector-filter">
+                        <option value="all">All Sectors</option>
+                        <option value="Banking">Banking</option>
+                        <option value="IT">IT</option>
+                        <option value="Automobile">Automobile</option>
+                        <option value="FMCG">FMCG</option>
+                        <option value="Energy">Energy</option>
+                        <option value="Pharma">Pharma</option>
+                        <option value="Metal">Metal</option>
+                        <option value="Telecom">Telecom</option>
+                        <option value="Infrastructure">Infrastructure</option>
+                    </select>
+                    <input type="text" id="search-input" placeholder="Search stocks...">
+                </div>
+            </div>
+            
+            <div id="stocks-grid" class="stocks-grid">
+                <!-- Stock cards will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section" style="display:none;">
+            <h1>My Portfolio</h1>
+            <div class="portfolio-summary">
+                <div class="summary-card">
+                    <h3>Total Value</h3>
+                    <p id="total-value">₹0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Cash Balance</h3>
+                    <p id="cash-balance">₹0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Total P&L</h3>
+                    <p id="total-pnl">₹0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Holdings</h3>
+                    <p id="holdings-count">0</p>
+                </div>
+            </div>
+            
+            <div id="holdings-table" class="table-container">
+                <!-- Holdings table will be loaded here -->
+            </div>
+            
+            <div id="transactions-table" class="table-container">
+                <h3>Transaction History</h3>
+                <!-- Transactions table will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Watchlist Section -->
+        <section id="watchlist" class="section" style="display:none;">
+            <h1>My Watchlist</h1>
+            <div id="watchlist-items" class="watchlist-container">
+                <!-- Watchlist items will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Chatbot Section -->
+        <section id="chatbot-section" class="section">
+            <h1>AI Stock Assistant</h1>
+            <div class="chatbot-container">
+                <div id="chat-messages" class="chat-messages">
+                    <div class="message assistant">
+                        Hello! I'm your AI Stock Assistant. Ask me about stocks, predictions, or analysis!
+                    </div>
+                </div>
+                <form id="chat-form" class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Ask about stocks... (e.g., 'What is TCS prediction?')">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Stock Detail Modal -->
+    <div id="stock-modal" class="modal">
+        <div class="modal-content stock-modal-content">
+            <span class="close">&times;</span>
+            <div id="stock-detail-content">
+                <!-- Stock details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
